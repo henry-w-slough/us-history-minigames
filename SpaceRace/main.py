@@ -10,11 +10,12 @@ import random
 
 
 PLAYER_WIDTH = 32
-PLAYER_DISTANCE = 256
+PLAYER_DISTANCE = 128
 
-ZOOM_SCALE_FACTOR = 100
-MAX_ZOOM = 2
-MIN_ZOOM = 0.3
+
+ZOOM_SCALE_FACTOR = 500
+MAX_ZOOM = 1
+MIN_ZOOM = 0.6
 
 
 screen = Screen.Screen(800, 800)
@@ -43,6 +44,7 @@ center.set_position(total_x//len(screen.layers["sprites"].sprites())+(PLAYER_DIS
 
 
 camera = Camera.Camera(center)
+camera.set_zoom(MAX_ZOOM)
 
 
 running = True
@@ -58,6 +60,7 @@ while running:
     midpoint = total_y // len(screen.layers["sprites"].sprites()) + (PLAYER_DISTANCE // 2) - (PLAYER_WIDTH // 2)
     center.set_position(center.rect.x, midpoint)
 
+
     smallest_y = min(all_player_y)
     largest_y = max(all_player_y)
 
@@ -66,8 +69,6 @@ while running:
         camera.zoom = pygame.math.clamp(camera.zoom, MIN_ZOOM, MAX_ZOOM)
 
     
-
-
     if screen.has_quit():
         running = False
 
