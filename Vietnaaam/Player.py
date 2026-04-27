@@ -18,5 +18,8 @@ class Player(KinematicObject.KinematicObject):
     
     def update(self) -> None:
 
-        if Input.is_key_pressed(   ):
+        move_x = Input.get_input_vector(pygame.K_w, pygame.K_s)
+        move_y = Input.get_input_vector(pygame.K_a, pygame.K_d)
+
+        self.add_position(move_x * self.speed, move_y * self.speed)
         
