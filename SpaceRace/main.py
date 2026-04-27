@@ -40,11 +40,8 @@ for b in range(3):
 
 
 for p in range(config.TOTAL_PLAYERS):
-    a = Label.Label(64, 64, "SpaceRace/assets/font.ttf", screen.layers["ui"])
-    player = Player.Player(PLAYER_WIDTH, PLAYER_HEIGHT, len(screen.layers["sprites"]), a, screen.layers["sprites"])
+    player = Player.Player(PLAYER_WIDTH, PLAYER_HEIGHT, len(screen.layers["sprites"]), screen.layers["sprites"])
     player.set_position(player.id * PLAYER_DISTANCE, 0)
-
-
 
 
 total_x = sum(p.rect.x for p in screen.layers["sprites"])
@@ -60,7 +57,8 @@ camera.set_zoom(MAX_ZOOM)
 
 info_ui = Label.Label(800, 800, "SpaceRace/assets/font.ttf", screen.layers["ui"])
 info_ui.set_background_color((255, 255, 255, 0))
-info_ui.set_text_color((255, 255, 255, 100))
+info_ui.set_text_color((255, 255, 255, 200))
+info_ui.set_text("SPACE RACE")
 
 
 running = True
@@ -84,7 +82,6 @@ while running:
 
 
     if info_ui.text_color != ((255, 255, 255, 0)):
-        print('asdasd')
         info_ui.set_text_color((255, 255, 255, info_ui.text_color[3]-1))
 
     total_y = 0
@@ -102,6 +99,12 @@ while running:
         spread = max(p.rect.y for p in screen.layers["sprites"]) - min(p.rect.y for p in screen.layers["sprites"])
         zoom = max(MIN_ZOOM, min(MAX_ZOOM, ZOOM_SCALE_FACTOR / (spread + ZOOM_SCALE_FACTOR)))
         camera.set_zoom(zoom)
+
+
+    if len(screen.layers["sprites"]) == 1:
+        info_ui.set_text(f"PLAYER {list(screen.layers['sprites'])[0].id+1} WON")
+        info_ui.viewport_y = 200
+        info_ui.set_text_color((255, 255, 255, 255))
 
 
     if screen.has_quit():
