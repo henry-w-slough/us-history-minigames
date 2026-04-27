@@ -3,9 +3,10 @@ from slankpy.Input import Input
 import pygame
 import config
 import random
+from slankpy.UI import Label
 
 class Player(PhysicsObject.PhysicsObject):
-    def __init__(self, width:int, height:int, id:int, *groups:pygame.sprite.Group) -> None:
+    def __init__(self, width:int, height:int, id:int, arrow:Label.Label, *groups:pygame.sprite.Group) -> None:
         super().__init__(width, height, *groups)
 
         self.speed = 15
@@ -21,11 +22,16 @@ class Player(PhysicsObject.PhysicsObject):
         if anim_rand == 2:
             self.sprite.add_sprites("SpaceRace/assets/ships/ussr.png", "ship", 4, 1)
 
+        self.sprite.add_sprites("SpaceRace/assets/explosion.png", "explosion", 1, 1)
+
         self.set_sprite("ship", 0)
 
+        self.is_dead = False
 
         self.animation_frame = 0
         self.animation_delay_ticks = 0
+
+        self.arrow = arrow
 
     def update(self) -> None:
 
@@ -38,15 +44,17 @@ class Player(PhysicsObject.PhysicsObject):
         self.set_sprite("ship", self.animation_frame)
 
 
-        keys = pygame.key.get_pressed()
+        if not self.is_dead:
 
-        if keys[config.PLAYER_KEYS[self.id]["spam"]] and not self.prev_keys[config.PLAYER_KEYS[self.id]["spam"]]:
-            self.apply_force(0, -self.speed)
+            keys = pygame.key.get_pressed()
 
-        self.prev_keys = keys
- 
-        if self.viewport_y >= pygame.display.get_surface().get_height():
-            self.kill()
+            if keys[config.PLAYER_KEYS[self.id]["spam"]] and not self.prev_keys[config.PLAYER_KEYS[self.id]["spam"]]:
+                self.apply_force(0, -self.speed)
+
+            self.prev_keys = keys
+    
+            if self.viewport_y >= pygame.display.get_surface().get_height():
+                self.is_dead = True
 
         self.move_and_slide()
 
