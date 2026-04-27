@@ -1,12 +1,10 @@
 from slankpy.Screen import Screen
 from slankpy.Camera import Camera
 from slankpy.GameObject import GameObject
-from slankpy.Objects import KinematicObject
 from slankpy.UI import Label
 import Player
 import Explosion
 import config as config
-import pygame
 
 PLAYER_WIDTH = 36
 PLAYER_HEIGHT = 64
