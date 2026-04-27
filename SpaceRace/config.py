@@ -3,7 +3,7 @@ import pygame
 
 
 #max of 3, min of 2
-TOTAL_PLAYERS = 2
+TOTAL_PLAYERS = 3
 
 PLAYER_KEYS = {
 
