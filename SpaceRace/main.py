@@ -5,7 +5,7 @@ from slankpy.Objects import KinematicObject
 from slankpy.UI import Label
 import Player
 import Explosion
-import config
+import config as config
 import pygame
 
 PLAYER_WIDTH = 36
@@ -73,7 +73,7 @@ while running:
 
     for player in screen.layers["sprites"]:
         if player.is_dead:
-            info_ui.set_text(f"PLAYER {player.id} HAS DIED")
+            info_ui.set_text(f"PLAYER {player.id+1} HAS DIED")
             info_ui.set_text_color((255, 255, 255, 200))
             explosion = Explosion.Explosion(100, 100, screen.layers["explosions"])
             explosion.viewport_y = 750

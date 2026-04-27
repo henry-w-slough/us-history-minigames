@@ -1,7 +1,7 @@
 from slankpy.Objects import PhysicsObject
 from slankpy.Input import Input
 import pygame
-import config
+import config as config
 import random
 from slankpy.UI import Label
 
