@@ -4,17 +4,19 @@ from slankpy.GameObject import GameObject
 from slankpy.Map import MapLoader
 import Player
 import config
+import random
 
 
 screen = Screen.Screen(800, 800)
 screen.add_layer("tiles")
 screen.add_layer("players")
+screen.add_layer("bullets")
 
 
 for p in range(config.TOTAL_PLAYERS):
-    new_player = Player.Player(25, 25, p, screen.layers["players"])
-    new_player.sprite.add_sprites("Vietnaaam/assets/player_walk_forward.png", "walk_forward", 8, 1)
-    new_player.set_size(48, 48)
+    new_player = Player.Player(25, 25, p, screen.layers["bullets"], screen.layers["players"])
+    new_player.set_size(20, 20)
+    new_player.set_position(random.randrange(350, 450), random.randrange(350, 450))
 
 
 screen_center = GameObject.GameObject(1, 1)
